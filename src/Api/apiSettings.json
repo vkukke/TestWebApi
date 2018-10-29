@@ -1,0 +1,24 @@
+﻿{
+  "captureStartupErrors": "true",
+  "detailedErrors": "true",
+  "allowedHosts": "localhost;127.0.0.1",
+  "kestrel": {
+    "addServerHeader": false,
+    "maxRequestBodySize": 65536,
+    "keepAliveTimeoutInSeconds": 300,
+    "endpointDefaults": {
+      "protocols": "http1"
+    },
+    "endpoints": {
+      "httpEndpoint": {
+        "url": "http://*:5889"
+      }
+    }
+  },
+  "logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.Azure.EventGridEdge": "Debug"
+    }
+  }
+}
