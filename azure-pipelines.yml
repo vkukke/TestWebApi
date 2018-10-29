@@ -1,0 +1,99 @@
+phases:
+
+################################################################################
+  - phase: windows
+    displayName: windows
+    queue:
+      name: Hosted VS2017
+
+    variables:
+       solution: '**/*.sln'
+       buildPlatform: 'Any CPU'
+       buildConfiguration: 'Release'
+  
+    steps:
+        - task: NuGetToolInstaller@0
+          displayName: Install Nuget Tool
+
+        - task: DotNetCoreCLI@2
+          displayName: Restore
+          inputs:
+            command: restore
+            projects: |
+              **/*.csproj
+              !**/test/*.csproj
+            arguments: '--configuration $(buildConfiguration)'
+
+        - task: DotNetCoreCLI@2
+          displayName: Build And Publish
+          inputs:
+            command: publish
+            projects: |
+              **/*.csproj
+              !**/test/*.csproj
+            arguments: '--configuration $(buildConfiguration) --no-restore --output $(Build.ArtifactStagingDirectory) -f netcoreapp2.1'
+            publishWebProjects: false
+            zipAfterPublish: false
+
+        - task: DotNetCoreCLI@2
+          displayName: Run Unit Tests
+          inputs:
+            command: test
+            projects: '**/test/*.csproj'
+            arguments: '--configuration $(buildConfiguration) --collect "Code coverage"'
+          
+        - task: PublishBuildArtifacts@1
+          displayName: Publish Artifacts
+          inputs:
+             pathToPublish: $(Build.ArtifactStagingDirectory)
+             artifactName: drop
+             publishLocation: container
+             
+             
+  - phase: linux
+    displayName: linux
+    queue:
+      name: Hosted Ubuntu 1604
+
+    variables:
+       solution: '**/*.sln'
+       buildPlatform: 'Any CPU'
+       buildConfiguration: 'Release'
+  
+    steps:
+        - task: NuGetToolInstaller@0
+          displayName: Install Nuget Tool
+
+        - task: DotNetCoreCLI@2
+          displayName: Restore
+          inputs:
+            command: restore
+            projects: |
+              **/*.csproj
+              !**/test/*.csproj
+            arguments: '--configuration $(buildConfiguration)'
+
+        - task: DotNetCoreCLI@2
+          displayName: Build And Publish
+          inputs:
+            command: publish
+            projects: |
+              **/*.csproj
+              !**/test/*.csproj
+            arguments: '--configuration $(buildConfiguration) --no-restore --output $(Build.ArtifactStagingDirectory) -f netcoreapp2.1'
+            publishWebProjects: false
+            zipAfterPublish: false
+
+        - task: DotNetCoreCLI@2
+          displayName: Run Unit Tests
+          inputs:
+            command: test
+            projects: '**/test/*.csproj'
+            arguments: '--configuration $(buildConfiguration) --collect "Code coverage"'
+          
+        - task: PublishBuildArtifacts@1
+          displayName: Publish Artifacts
+          inputs:
+             pathToPublish: $(Build.ArtifactStagingDirectory)
+             artifactName: drop
+             publishLocation: container
