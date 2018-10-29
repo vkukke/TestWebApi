@@ -2,7 +2,10 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
-	<DebugType>full</DebugType>
+    <DebugType>full</DebugType>
+    <NetCoreAppVer>2.1.4</NetCoreAppVer>
+    <RuntimeFxVer Condition="'$(TargetFramework)' == 'netcoreapp2.1'">2.1.4</RuntimeFxVer>
+    <LangVersion>7.3</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>

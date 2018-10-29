@@ -1,6 +1,9 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
+    <NetCoreAppVer>2.1.4</NetCoreAppVer>
+    <RuntimeFxVer Condition="'$(TargetFramework)' == 'netcoreapp2.1'">2.1.4</RuntimeFxVer>
+    <LangVersion>7.3</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" Version="[2.1.4]" />

@@ -17,7 +17,6 @@ namespace Api.Tests
     {
         private static IWebHost apiHost;
         private readonly string productsBaseUri = "http://127.0.0.1:5889/products";
-        private readonly string apiVersion = "api-version=2019-01-01-preview";
 
         [ClassInitialize]
         public static async Task SetupAsync(TestContext context)
